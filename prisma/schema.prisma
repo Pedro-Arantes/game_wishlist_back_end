@@ -8,38 +8,61 @@ datasource db {
 }
 
 model Games {
-  id       Int     @id @default(autoincrement())
-  name     String?
-  platform String?
-  genre    String?
-  status   Boolean? @default(dbgenerated("false"))
-  grade    Decimal?  @default(0)
-  evaluator_id Int?  
-  user  Users? @relation(fields: [evaluator_id],references: [id]) 
+  id           Int        @id @default(autoincrement())
+  name         String?
+  image        String?
+  platform     String?
+  genre        String?
+  status       Boolean?   @default(dbgenerated("false"))
+  evaluator_id Int?
+  user         Users?     @relation(fields: [evaluator_id], references: [id])
+  Wishlist     Wishlist[]
+  Grades       Grades[]
 
   @@map("games")
 }
 
-model  Users {
-
-  id Int  @id @default(autoincrement())
-  name  String?
-  email String? @unique
+model Users {
+  id       Int     @id @default(autoincrement())
+  name     String?
+  email    String? @unique
   password String?
-  cpf String?
+  cpf      String?
 
-  Games Games[]
-  Session Sessions?
-
+  Games    Games[]
+  Session  Sessions?
+  Wishlist Wishlist[]
+  Grades   Grades[]
 
   @@map("users")
 }
 
-model Sessions{
-    id Int  @id @default(autoincrement())
-    user_id Int @unique
-    user  Users  @relation(fields: [user_id],references: [id])
-    token String  
+model Sessions {
+  id      Int    @id @default(autoincrement())
+  user_id Int    @unique
+  user    Users  @relation(fields: [user_id], references: [id])
+  token   String
 
-    @@map("sessions")
+  @@map("sessions")
+}
+
+model Wishlist {
+  id      Int   @id @default(autoincrement())
+  user_id Int
+  user    Users @relation(fields: [user_id], references: [id])
+  game_id Int
+  game    Games @relation(fields: [game_id], references: [id])
+
+  @@map("wishlist")
+}
+
+model Grades {
+  id      Int      @id @default(autoincrement())
+  game_id Int
+  game    Games    @relation(fields: [game_id], references: [id])
+  user_id Int
+  user    Users    @relation(fields: [user_id], references: [id])
+  grade   Decimal? @default(0)
+
+  @@map("grades")
 }

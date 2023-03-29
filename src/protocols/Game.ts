@@ -3,10 +3,10 @@ import { Decimal } from "@prisma/client/runtime"
 export type GameEntity = {
     id: number,
     name: string,
+    image: string,
     platform: string,
     genre: string,
     status: boolean,
-    grade: Decimal,
     evaluator_id?: number 
 }
 

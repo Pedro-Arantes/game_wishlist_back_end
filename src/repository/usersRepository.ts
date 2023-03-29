@@ -4,6 +4,13 @@ import { User, UserEntity, UserLogin } from "../protocols/User.js";
 export async function selectUsers(): Promise<UserEntity[]>{
     return prisma.users.findMany();
 }
+export async function selectUsersById(id:number): Promise<UserEntity>{
+    return prisma.users.findFirst({
+        where:{
+            id
+        }
+    });
+}
 
 export async function selectLoginUser(user:UserLogin): Promise<UserEntity>{
     return prisma.users.findFirst({

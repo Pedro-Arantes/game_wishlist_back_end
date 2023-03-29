@@ -1,8 +1,8 @@
 import express from 'express';
 import serverRouter from './routes/serverRouter.js';
-
+import cors from "cors";
 const app = express();
-
+app.use(cors());
 app.use(express.json());
 app.use(serverRouter);
 

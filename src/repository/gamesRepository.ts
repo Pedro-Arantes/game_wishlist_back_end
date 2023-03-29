@@ -18,7 +18,7 @@ export async function selectFilterGames(platform: string): Promise<GameEntity[]>
 }
 
 export async function upsertGames(game:GamePartial, id?: number,user_id?:number): Promise<GameEntity>{
-    const { name, platform, genre,status,grade } = game
+    const { name,image, platform, genre,status } = game
     //prisma.games.upsert()
     return prisma.games.upsert({
         where: {
@@ -26,14 +26,12 @@ export async function upsertGames(game:GamePartial, id?: number,user_id?:number)
         },
         create: game as Game,
         update: {
-            grade:game.grade,
             status:game.status,
-            evaluator_id: user_id
         },
     })
 }
 export async function updateGame(game: GamePut, id: number): Promise<void> {
-    const { status, grade } = game
+    const { status } = game
     //connection.query('UPDATE games SET  status=$1,grade=$2  WHERE id=$3', [status, grade, id]);
 }
 export async function deleteGame(id: number):Promise<GameEntity>{
