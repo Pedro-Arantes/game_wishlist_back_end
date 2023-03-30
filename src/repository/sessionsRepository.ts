@@ -20,3 +20,12 @@ export async function insertSession(session:Session): Promise<SessionEntity>{
         data:session
     })
 }
+
+export async function deleteSession(user_id:number): Promise<SessionEntity>{
+
+    return prisma.sessions.delete({
+        where:{
+                user_id
+        }
+    })
+}

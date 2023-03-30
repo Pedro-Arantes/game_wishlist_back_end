@@ -1,8 +1,9 @@
 import { Request,Response } from "express";
 import { UserLogin } from "../protocols/User.js";
 import { Session } from "../protocols/Session.js";
-import { insertSession, selectSessions } from "../repository/sessionsRepository.js";
+import { deleteSession, insertSession, selectSessions } from "../repository/sessionsRepository.js";
 import { selectLoginUser } from "../repository/usersRepository.js";
+import { AuthenticatedRequest } from "../middlewares/authMiddleware.js";
 import { v4 as uuid} from 'uuid';
 
 export async function getSessions(req:Request,res:Response){
@@ -31,6 +32,17 @@ export async function postSession(req:Request,res:Response){
         }
         const result = await insertSession(session)
         res.status(201).send(result.token)
+    } catch (error) {
+        console.log(error)
+        res.sendStatus(500)
+    }
+}
+
+export async function logout(req:AuthenticatedRequest,res:Response){
+    const {userId} = req
+    try {
+        const result = await deleteSession(Number(userId))
+        res.sendStatus(200)
     } catch (error) {
         console.log(error)
         res.sendStatus(500)

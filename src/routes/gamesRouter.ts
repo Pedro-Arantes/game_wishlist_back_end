@@ -6,10 +6,11 @@ import { gameSchema } from "../models/insertGameModel.js";
 
 const gamesRouter : Router = Router();
 
-gamesRouter.post("/games",validateSchema(gameSchema),postGames)
-gamesRouter.get("/games",getGames)
-gamesRouter.get("/games/:platform",getPlatformGames)
-gamesRouter.put("/games",hasToken,putGame)
-gamesRouter.delete("/games/:game_id",hasToken,delGame)
+gamesRouter
+                            .post("/games",validateSchema(gameSchema),postGames)
+                            .get("/games",getGames)
+                            .get("/games/:platform",getPlatformGames)
+                            .put("/games",hasToken,putGame)
+                            .delete("/games/:game_id",hasToken,delGame);
 
 export default gamesRouter;
