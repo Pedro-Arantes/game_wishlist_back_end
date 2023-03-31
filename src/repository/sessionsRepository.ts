@@ -6,7 +6,6 @@ export async function selectSessions(): Promise<SessionEntity[]>{
 }
 
 export async function selectTokenSession(token:string): Promise<SessionEntity>{
-    console.log(token)
     return prisma.sessions.findFirst({
         where:{
             token:token

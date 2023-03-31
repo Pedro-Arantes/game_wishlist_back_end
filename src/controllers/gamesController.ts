@@ -78,7 +78,6 @@ export async function delGame(req:Request,res:Response){
     try {
 
         const result = await deleteGame(id)
-        console.log(result)
         res.sendStatus(200)
     } catch (error) {
         console.log(error)

@@ -18,11 +18,7 @@ export async function getAvgGrade(req:Request,res:Response){
 export async function giveGrade(req:AuthenticatedRequest,res:Response){
     const {gameId,grade} = req.body
     const {userId} = req
-    const obj = {
-        status: true
-    }
     try {
-        await upsertGames(obj,Number(gameId))
         const grades = await selectGrade(userId,gameId)
         let result : GradeEntity;
         if(!grades){
