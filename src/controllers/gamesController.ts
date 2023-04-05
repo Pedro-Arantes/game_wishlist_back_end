@@ -3,6 +3,7 @@ import { Game, GamePut } from "../protocols/Game.js";
 import { deleteGame, upsertGames, selectFilterGames, selectGames, updateGame } from "../repository/gamesRepository.js";
 import { haveToken } from "../services/authService.js";
 import { haveGame } from "../services/gamesService.js";
+import { selectGameById } from "../repository/gamesRepository.js";
 
 export async function getGames(req:Request,res:Response){
 
@@ -79,6 +80,17 @@ export async function delGame(req:Request,res:Response){
 
         const result = await deleteGame(id)
         res.sendStatus(200)
+    } catch (error) {
+        console.log(error)
+        res.sendStatus(500)
+    }
+}
+
+export async function getGameById(req:Request,res:Response){
+    const {id }  = req.params 
+    try {
+        const result = await selectGameById(Number(id))
+        res.status(200).send(result)
     } catch (error) {
         console.log(error)
         res.sendStatus(500)

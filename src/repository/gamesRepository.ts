@@ -53,3 +53,11 @@ export async function selectVeryGames(name: string) : Promise<GameEntity[]> {
     })
     //connection.query('SELECT * FROM games WHERE name=$1 ', [name]);
 }
+
+export async function selectGameById(id:number): Promise<GameEntity>{
+    return prisma.games.findUnique({
+        where:{
+            id
+        }
+    })
+}
