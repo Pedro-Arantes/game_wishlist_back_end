@@ -5,6 +5,7 @@ import usersRouter from "./usersRouter.js";
 import gradesRouter from "./gradesRouter.js";
 import wishlistRouter from "./wishlistRouter.js";
 import profPictRouter from "./profPicturesRouter.js";
+import commentsRouter from "./commentsRouter.js";
 const serverRouter : Router = Router();
 
 serverRouter
@@ -13,6 +14,7 @@ serverRouter
 .use(sessionsRouter)
 .use(gradesRouter)
 .use(wishlistRouter)
+.use(commentsRouter)
 .use(profPictRouter);
 
 export default serverRouter;

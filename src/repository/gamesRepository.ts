@@ -6,13 +6,17 @@ import { GameEntity, GamePut,Game, GamePartial } from "../protocols/Game.js";
 export async function selectGames(): Promise<GameEntity[]>{
     return prisma.games.findMany();
 }
-export async function selectFilterGames(platform: string): Promise<GameEntity[]> {
+export async function selectFilterGames(platform: string,genre:string): Promise<GameEntity[]> {
     return prisma.games.findMany({
         where: {
             platform:{
                 startsWith: platform,
                 mode: 'insensitive',
             },
+            genre:{
+                startsWith:genre,
+                mode:'insensitive'
+            }
         },
     })
 }

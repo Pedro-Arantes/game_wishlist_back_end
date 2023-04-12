@@ -1,6 +1,6 @@
 import { Request,Response } from "express";
 import { Game, GamePut } from "../protocols/Game.js";
-import { deleteGame, upsertGames, selectFilterGames, selectGames, updateGame } from "../repository/gamesRepository.js";
+import { deleteGame, upsertGames, selectFilterGames, selectGames, updateGame, selectVeryGames } from "../repository/gamesRepository.js";
 import { haveToken } from "../services/authService.js";
 import { haveGame } from "../services/gamesService.js";
 import { selectGameById } from "../repository/gamesRepository.js";
@@ -19,11 +19,11 @@ export async function getGames(req:Request,res:Response){
 }
 
 export async function getPlatformGames(req:Request,res:Response){
-    const {platform } = req.params
+    const {platform,genre } = req.params
 
     try {
 
-        const result = await selectFilterGames(platform)
+        const result = await selectFilterGames(platform,genre)
         res.status(200).send(result)
     } catch (error) {
         console.log(error)
@@ -91,6 +91,17 @@ export async function getGameById(req:Request,res:Response){
     try {
         const result = await selectGameById(Number(id))
         res.status(200).send(result)
+    } catch (error) {
+        console.log(error)
+        res.sendStatus(500)
+    }
+}
+
+export async function getGamesByName(req:Request,res:Response){
+    const {name}  = req.params 
+    try {
+        const result = await selectVeryGames(name)
+        res.status(200).send(result);
     } catch (error) {
         console.log(error)
         res.sendStatus(500)

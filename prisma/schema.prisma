@@ -18,6 +18,7 @@ model Games {
   user         Users?     @relation(fields: [evaluator_id], references: [id])
   Wishlist     Wishlist[]
   Grades       Grades[]
+  Comments     Comments[]
 
   @@map("games")
 }
@@ -35,6 +36,7 @@ model Users {
   Session  Sessions?
   Wishlist Wishlist[]
   Grades   Grades[]
+  Comments Comments[]
 
   @@map("users")
 }
@@ -73,4 +75,13 @@ model ProfPictures {
   id      Int     @id @default(autoincrement())
   picture String
   Users   Users[]
+}
+
+model Comments {
+  id      Int    @id @default(autoincrement())
+  text    String
+  user_id Int
+  user    Users  @relation(fields: [user_id], references: [id])
+  game_id Int
+  game    Games  @relation(fields: [game_id], references: [id])
 }
