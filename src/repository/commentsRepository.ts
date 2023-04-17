@@ -12,6 +12,7 @@ export async function selectComments(game_id:number): Promise<any>{
             user_id:true,
             user:{
                 select:{
+                    name:true,
                     profpicture:{
                         select:{
                             picture:true
